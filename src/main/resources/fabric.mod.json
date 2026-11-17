@@ -1,0 +1,28 @@
+{
+  "schemaVersion": 1,
+  "id": "fastminecarts",
+  "version": "${version}",
+  "name": "Fast Minecarts",
+  "description": "Server-side-only mod: vanilla player-ridden minecarts go faster and deal runover damage. No client install required.",
+  "authors": [
+    "FastMinecarts"
+  ],
+  "contact": {},
+  "license": "MIT",
+  "icon": "",
+  "environment": "server",
+  "entrypoints": {
+    "main": [
+      "com.fastminecarts.FastMinecarts"
+    ]
+  },
+  "mixins": [
+    "fastminecarts.mixins.json"
+  ],
+  "depends": {
+    "fabricloader": ">=0.20.1",
+    "fabric-api": "*",
+    "minecraft": "${minecraft_dep}",
+    "java": ">=25"
+  }
+}
