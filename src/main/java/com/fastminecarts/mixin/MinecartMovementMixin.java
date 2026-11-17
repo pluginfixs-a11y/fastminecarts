@@ -95,6 +95,12 @@ public abstract class MinecartMovementMixin {
             ServerLevel serverLevel,
             ModConfig config
     ) {
+        // Разгон и торможение — только на рельсах. Без этой проверки вагонетка, слетевшая
+        // с конца пути, каждый тик снова получала максимальную скорость и летела по воздуху.
+        if (!self.isOnRails()) {
+            return;
+        }
+
         Vec3 velocity = self.getDeltaMovement();
         double speed = velocity.length();
         if (speed < 1.0e-5) {
@@ -149,6 +155,8 @@ public abstract class MinecartMovementMixin {
             if (target == self) return false;
             if (self.hasPassenger(target)) return false; // Не трогать пассажира в этой вагонетке
             if (!target.isAlive() || target.isRemoved()) return false;
+            // Толкаем только живых: дроп, стрелы и пустые вагонетки на путях должны оставаться на месте.
+            if (!(target instanceof LivingEntity)) return false;
             if (target instanceof Player player && (player.isCreative() || player.isSpectator())) return false;
             return true;
         });

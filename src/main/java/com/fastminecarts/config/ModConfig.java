@@ -43,35 +43,10 @@ public final class ModConfig {
     public double accelerationMultiplier = 1.5;
     public boolean maintainHighSpeedOnSparsePoweredRails = true;
 
-    // ---- Runover damage ----
-    public boolean runoverDamageEnabled = true;
-    public double runoverDamageMinSpeed = 20.0;
-    public String runoverDamageMode = "SCALING"; // SCALING or FLAT
-    public double runoverDamageFlat = 8.0;
-    public double runoverDamageBase = 4.0;
-    public double runoverDamagePerSpeed = 0.8;
-    public double runoverDamageMax = 20.0;
-    public int runoverDamageCooldownTicks = 10;
-
     // ---- Knockback ----
     public boolean runoverKnockbackEnabled = true;
     public double runoverKnockbackStrength = 2.5;
     public double runoverKnockbackVertical = 0.4;
-
-    // ---- Target filters ----
-    public boolean damagePlayers = true;
-    public boolean damageHostileMobs = true;
-    public boolean damagePassiveMobs = true;
-    public boolean damageTamedMobs = true;
-    public boolean damageArmorStands = false;
-    public boolean damageItemFrames = false;
-    public boolean damageItemEntities = false;
-    public boolean damageExperienceOrbs = false;
-    public boolean damageOtherVehicles = false;
-    public boolean damageProjectiles = false;
-
-    // ---- Damage source ----
-    public String damageSourceMode = "MINECART";
 
     private static final Gson GSON = new GsonBuilder().setPrettyPrinting().create();
 
@@ -142,30 +117,8 @@ public final class ModConfig {
         poweredRailBoostMultiplier = clamp(poweredRailBoostMultiplier, 1.0, 20.0);
         accelerationMultiplier = clamp(accelerationMultiplier, 1.0, 20.0);
 
-        runoverDamageMinSpeed = clamp(runoverDamageMinSpeed, 0.0, hardMaxSpeedBlocksPerSecond);
-
-        if (!"SCALING".equalsIgnoreCase(runoverDamageMode) && !"FLAT".equalsIgnoreCase(runoverDamageMode)) {
-            LOGGER.warn("[FastMinecarts] Unknown runoverDamageMode '{}', defaulting to SCALING.", runoverDamageMode);
-            runoverDamageMode = "SCALING";
-        }
-
-        runoverDamageFlat = clamp(runoverDamageFlat, 0.0, 1000.0);
-        runoverDamageBase = clamp(runoverDamageBase, 0.0, 1000.0);
-        runoverDamagePerSpeed = clamp(runoverDamagePerSpeed, 0.0, 100.0);
-        runoverDamageMax = clamp(runoverDamageMax, 0.0, 1000.0);
-        if (runoverDamageMax < runoverDamageBase) {
-            runoverDamageMax = runoverDamageBase;
-        }
-
-        runoverDamageCooldownTicks = (int) clamp(runoverDamageCooldownTicks, 0, 20 * 60);
-
         runoverKnockbackStrength = clamp(runoverKnockbackStrength, 0.0, 20.0);
         runoverKnockbackVertical = clamp(runoverKnockbackVertical, 0.0, 5.0);
-
-        if (!"MINECART".equalsIgnoreCase(damageSourceMode) && !"GENERIC".equalsIgnoreCase(damageSourceMode)) {
-            LOGGER.warn("[FastMinecarts] Unknown damageSourceMode '{}', defaulting to MINECART.", damageSourceMode);
-            damageSourceMode = "MINECART";
-        }
     }
 
     private static double clamp(double value, double min, double max) {
@@ -178,10 +131,5 @@ public final class ModConfig {
     /** Configured max speed converted from blocks/second to blocks/tick (20 ticks/second). */
     public double getMaxSpeedBlocksPerTick() {
         return maxSpeedBlocksPerSecond / 20.0;
-    }
-
-    /** Configured minimum runover-damage speed converted to blocks/tick. */
-    public double getRunoverDamageMinSpeedBlocksPerTick() {
-        return runoverDamageMinSpeed / 20.0;
     }
 }

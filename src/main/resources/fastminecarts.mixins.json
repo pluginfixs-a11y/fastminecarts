@@ -7,11 +7,9 @@
   "client": [],
   "server": [
     "MinecartMovementMixin",
-    "NewMinecartBehaviorMixin",
-    "LivingEntityCooldownMixin"
+    "NewMinecartBehaviorMixin"
   ],
   "injectors": {
     "defaultRequire": 1
   }
 }
-
