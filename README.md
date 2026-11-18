@@ -7,8 +7,9 @@ top speed and knocks living entities off the rails. Vanilla clients connect with
 
 - Rideable minecart speeds up while a player is riding it, up to `maxSpeedBlocksPerSecond` (default 40 b/s).
   The boost only works while the cart is on rails — leave the track and vanilla physics take over.
-- With `maintainHighSpeedOnSparsePoweredRails` the cart holds that speed between powered rails; turn it off
-  and the cart only gets the vanilla powered-rail push and coasts down between them.
+- With `maintainHighSpeedOnSparsePoweredRails` (default) the cart is held at top speed on every straight rail,
+  powered or not. Turn it off and only powered rails put it back to top speed — one instant push per powered
+  rail — and the cart coasts down between them.
 - Anything living in front of a moving cart is thrown aside (knockback, configurable strength, switchable
   with `runoverKnockbackEnabled`). Dropped items, arrows and other minecarts are left alone; creative and
   spectator players are never hit.
@@ -17,7 +18,9 @@ top speed and knocks living entities off the rails. Vanilla clients connect with
 
 ## Install
 
-1. Fabric Loader ≥ 0.20.1 and Fabric API on the **server** (single-player worlds work too).
+1. Fabric Loader ≥ 0.20.1 and Fabric API on the **server**. `fabric.mod.json` declares
+   `"environment": "server"`, so the loader does not even load this mod in a single-player client — a
+   dedicated server (or a LAN server with the jar on the host machine) is required.
 2. Put `fastminecarts-1.2.1.jar` into `mods/`.
 3. Config is generated at `config/fastminecarts.json` on first start.
 
