@@ -19,8 +19,8 @@ top speed and knocks living entities off the rails. Vanilla clients connect with
 ## Install
 
 1. Fabric Loader ≥ 0.20.1 and Fabric API on the **server**. `fabric.mod.json` declares
-   `"environment": "server"`, so the loader does not even load this mod in a single-player client — a
-   dedicated server (or a LAN server with the jar on the host machine) is required.
+   `"environment": "server"`, and the loader only loads such a mod in a dedicated server (`ModEnvironment.SERVER`),
+   so single-player and a LAN world opened from the client do not load it at all.
 2. Put `fastminecarts-1.2.1.jar` into `mods/`.
 3. Config is generated at `config/fastminecarts.json` on first start.
 
