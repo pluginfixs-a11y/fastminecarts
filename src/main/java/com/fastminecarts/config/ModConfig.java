@@ -31,16 +31,15 @@ public final class ModConfig {
 
     // ---- Speed ----
     public double maxSpeedBlocksPerSecond = 40.0;
+    /** Верхняя граница для {@link #maxSpeedBlocksPerSecond}: за неё конфиг не даст выставить. */
     public double hardMaxSpeedBlocksPerSecond = 48.0;
-    public String speedClampMode = "FULL_3D"; // Only FULL_3D is implemented; reserved for future modes.
 
     // ---- Eligibility ----
     public boolean onlyVanillaMinecart = true;
     public boolean requirePlayerPassenger = true;
 
-    // ---- Acceleration ----
-    public double poweredRailBoostMultiplier = 4.0;
-    public double accelerationMultiplier = 1.5;
+    // ---- Speed keeping ----
+    /** Держать максимальную скорость между питающими рельсами, а не ждать буста от каждого. */
     public boolean maintainHighSpeedOnSparsePoweredRails = true;
 
     // ---- Knockback ----
@@ -108,14 +107,6 @@ public final class ModConfig {
     private void clampAndValidate() {
         hardMaxSpeedBlocksPerSecond = clamp(hardMaxSpeedBlocksPerSecond, 1.0, 100.0);
         maxSpeedBlocksPerSecond = clamp(maxSpeedBlocksPerSecond, 1.0, hardMaxSpeedBlocksPerSecond);
-
-        if (!"FULL_3D".equalsIgnoreCase(speedClampMode)) {
-            LOGGER.warn("[FastMinecarts] Unknown speedClampMode '{}', defaulting to FULL_3D.", speedClampMode);
-            speedClampMode = "FULL_3D";
-        }
-
-        poweredRailBoostMultiplier = clamp(poweredRailBoostMultiplier, 1.0, 20.0);
-        accelerationMultiplier = clamp(accelerationMultiplier, 1.0, 20.0);
 
         runoverKnockbackStrength = clamp(runoverKnockbackStrength, 0.0, 20.0);
         runoverKnockbackVertical = clamp(runoverKnockbackVertical, 0.0, 5.0);

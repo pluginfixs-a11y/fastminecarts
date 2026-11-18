@@ -87,7 +87,9 @@ public abstract class MinecartMovementMixin {
         fastminecarts$updateSpeedAndTurnLogic(self, serverLevel, config);
 
         // 2. Отбрасывание всех мобов и игроков по курсу движения
-        fastminecarts$knockbackEntities(self, serverLevel, config);
+        if (config.runoverKnockbackEnabled) {
+            fastminecarts$knockbackEntities(self, serverLevel, config);
+        }
     }
 
     private void fastminecarts$updateSpeedAndTurnLogic(
